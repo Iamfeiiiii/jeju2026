@@ -3,7 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>2026 濟州島 8天7夜自駕探索全覽</title>
+  <title>2026 濟州島 8天7夜自駕探索</title>
+  
+  <!-- 蘋果主畫面專屬靚麗圖標 -->
+  <link rel="apple-touch-icon" href="https://images.unsplash.com/photo-1582979512210-99b6a53386f9?w=180&h=180&fit=crop">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="濟州島自駕">
+
   <style>
     :root {
       --bg: #F8F9FA;
@@ -56,7 +63,13 @@
     .card-kr { font-size: 12px; color: #6366F1; font-weight: 600; margin-bottom: 6px; }
     .card-desc { font-size: 13px; color: var(--sub-text); line-height: 1.5; margin-bottom: 6px; }
     
-    .map-buttons { display: flex; gap: 6px; margin-top: 6px; margin-bottom: 6px; }
+    /* 多地點群組化樣式 */
+    .sub-place-box { background: #F8F9FA; border-radius: 10px; padding: 10px; margin-top: 8px; border: 1px solid #E5E7EB; }
+    .sub-place-title { font-size: 14px; font-weight: 700; color: #1F2937; margin-bottom: 2px; }
+    .sub-place-kr { font-size: 11px; color: #4F46E5; margin-bottom: 4px; }
+    .sub-place-desc { font-size: 12px; color: #4B5563; margin-bottom: 6px; }
+
+    .map-buttons { display: flex; gap: 6px; margin-top: 6px; margin-bottom: 6px; flex-wrap: wrap; }
     .map-btn-naver { display: inline-block; background: #03C75A; color: white; padding: 3px 8px; border-radius: 6px; text-decoration: none; font-size: 11px; font-weight: 700; }
     .map-btn-google { display: inline-block; background: #4285F4; color: white; padding: 3px 8px; border-radius: 6px; text-decoration: none; font-size: 11px; font-weight: 700; }
 
@@ -69,7 +82,7 @@
     .tag-rate { background: #D1FAE5; color: #065F46; }
     .tag-booking { background: #FEE2E2; color: #991B1B; border: 1px dashed #DC2626; }
 
-    .card-cost { font-size: 12px; font-weight: 800; color: #E63946; margin-top: 6px; border-top: 1px dashed #E5E7EB; padding-top: 6px; }
+    .card-cost { font-size: 12px; font-weight: 800; color: #E63946; margin-top: 8px; border-top: 1px dashed #E5E7EB; padding-top: 6px; }
 
     /* 區塊卡片 */
     .section-card { background: white; border-radius: 16px; padding: 18px; margin-bottom: 14px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
@@ -116,13 +129,12 @@
 
 <div class="container">
   
-  <!-- 全局搜尋功能 -->
-  <div class="search-box">
-    <input type="text" id="globalSearch" class="search-input" placeholder="🔍 搜尋行程、店名、景點或備案..." oninput="handleSearch(this.value)">
-  </div>
-
-  <!-- 頁面 1：每日行程 -->
+  <!-- 頁面 1：行程總表 (包含搜尋列) -->
   <div id="page-itinerary">
+    <div class="search-box">
+      <input type="text" id="globalSearch" class="search-input" placeholder="🔍 搜尋行程、店名、《母胎單身》拍攝地..." oninput="handleSearch(this.value)">
+    </div>
+
     <div class="day-tabs">
       <button class="tab-btn active" data-day="1">D1 抵達</button>
       <button class="tab-btn" data-day="2">D2 涯月</button>
@@ -136,7 +148,7 @@
     <div id="day-content" style="margin-top: 12px;"></div>
   </div>
 
-  <!-- 頁面 2：行前須知與公約 (含旅行共識、自駕法規、緊急聯繫) -->
+  <!-- 頁面 2：行前須知與公約 -->
   <div id="page-rules" class="hidden">
     <div class="section-card">
       <div class="section-title">🤝 1. 旅行共識公約</div>
@@ -164,7 +176,7 @@
       <div class="rule-item"><strong>• 紅燈右轉硬性法規：</strong>遇紅燈必須完全煞停（Stop）3 秒，確認斑馬線絕對無行人後方能右轉；若遇綠色右轉箭頭亮起方可順行。</div>
       <div class="rule-item"><strong>• 導航與地面彩色車道：</strong>行經複雜交流道或路口時，Naver Map 會語音提示，請緊跟地面「粉紅、綠、藍色」引導線行駛。</div>
       <div class="rule-item"><strong>• 嚴格限速與測速：</strong>市區一般道路限速 50 km/h，學區嚴格限速 30 km/h。固定桿與區間測速極多，違規罰單將由租車公司事後從信用卡扣款。</div>
-      <div class="rule-item"><strong>• 加油防呆機制：</strong>租油電車或汽油車請認明「黃色油槍（Gasoline）」，柴油車為藍/黑色。還車前必須加滿油。</div>
+      <div class="rule-item"><strong>• 加油防呆機制：</strong>租油電車或汽油車請認明<strong>黃色油槍（Gasoline）</strong>，柴油車為藍/黑色。還車前必須加滿油。</div>
       <div class="rule-item"><strong>• 停車與迴轉：</strong>地面噴有數字編號為居民私有車位，絕對不可停！無迴轉標誌處禁止任意 U-turn。</div>
     </div>
 
@@ -250,7 +262,7 @@
     </div>
   </div>
 
-  <!-- 頁面 5：匯率換算 (上) 與 行前準備 / 女性輕量行李清單 (下) -->
+  <!-- 頁面 5：匯率換算與行李清單 -->
   <div id="page-pack" class="hidden">
     <div class="section-card">
       <div class="section-title">💰 韓元 ⇄ 台幣即時換算 (匯率 40)</div>
@@ -269,7 +281,6 @@
         <div class="luggage-tab" onclick="switchLuggage('check', this)">🧳 托運行李</div>
       </div>
       
-      <!-- 行前準備 -->
       <div id="luggage-prep">
         <div class="checklist-title">✈️ 出發前重要待辦</div>
         <label class="check-item"><input type="checkbox"> 預約高雄/小港機場接送 / 安排停車</label>
@@ -280,7 +291,6 @@
         <label class="check-item"><input type="checkbox"> 預訂 9.81 Park 賽車、Arte Museum 門票</label>
       </div>
 
-      <!-- 隨身行李 -->
       <div id="luggage-carry" class="hidden">
         <div class="checklist-title">📂 重要證件與隨身貴重物</div>
         <label class="check-item"><input type="checkbox"> 護照正本（效期 6 個月以上）</label>
@@ -293,7 +303,6 @@
         <label class="check-item"><input type="checkbox"> 相機 / GoPro 及備用電池</label>
       </div>
 
-      <!-- 托運行李 -->
       <div id="luggage-check" class="hidden">
         <div class="checklist-title">👗 女生輕量穿搭（26吋 + 24吋 + 2個登機箱共用）</div>
         <label class="check-item"><input type="checkbox"> 外出服飾 4 套（好拍的洋裝、上衣、輕便褲裝）</label>
@@ -346,17 +355,38 @@
         { time: '13:05-15:30', title: '上海組抵達濟州 (HO1373)', kr: '제주국제공항', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=Jeju+International+Airport', desc: 'Elion & Eva 降落，於機場休息', cost: '-' },
         { time: '15:50-18:50', title: '高雄組抵達濟州 (IT670)', kr: '가오슝-제주', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=Jeju+International+Airport', desc: 'Fei & Hsi 領 WOWPASS，1樓會合！主駕：Hsi & Elion', cost: '-' },
         { time: '19:40-20:20', title: '樂天租車取車 (Sorento油電車)', kr: '롯데렌터카 제주오토하우스', naver: 'https://naver.me/Gby29mYp', google: 'https://maps.google.com/?q=Lotte+Rent-a-Car+Jeju', desc: '辦理手續，核對國際駕照與休旅車況', cost: '租車合約', tag: 'tag-booking', tagText: '⚠️ 需提前預約' },
-        { time: '20:30-21:30', title: '晚餐：連洞馬鈴薯排骨湯 (備案：偶來麵條)', kr: '민속감자탕별관 / 올래국수 본점', naver: 'https://naver.me/5W52X12g', google: 'https://maps.google.com/?q=Yeon-dong+Jeju', desc: '吃溫熱在地馬鈴薯排骨湯，或美味豬肉湯麵（入座極快），順便便利店買齊', cost: '約 ₩45,000 (NT$1,125)' },
-        { time: '21:30-22:30', title: '夜駕前往大靜邑住宿', kr: '서귀포시 대정읍', naver: 'https://naver.me/F8W52X12g', google: 'https://maps.google.com/?q=Daejeong-eup', desc: '車程約 55 分鐘，入住西部獨棟民宿', cost: '-' }
+        { 
+          time: '20:30-21:30', 
+          title: '晚餐：連洞排骨湯 ＆ 在地美食備案', 
+          kr: '연동 맛집군', 
+          desc: '抵達市區彈性選擇溫熱排骨湯或豬肉麵，順便便利店買齊',
+          subPlaces: [
+            { name: '連洞馬鈴薯排骨湯 (Minsok Gamjatang)', kr: '민속감자탕별관', naver: 'https://naver.me/5W52X12g', google: 'https://maps.google.com/?q=Minsok+Gamjatang+Jeju', desc: '24小時暖胃馬鈴薯排骨湯' },
+            { name: '偶來麵條 (Sammoo Guksu / 豬肉麵)', kr: '올래국수 본점', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=Ollae+Guksu', desc: '超人氣濃郁豬肉湯麵老店' }
+          ],
+          cost: '約 ₩45,000 (NT$1,125)' 
+        },
+        { time: '21:30-22:30', title: '夜駕前往大靜邑住宿 (含《母胎單身》 Stay Neureut 附近區域)', kr: '서귀포시 대정읍 스테이느릇', naver: 'https://naver.me/F8W52X12g', google: 'https://maps.google.com/?q=Daejeong-eup', desc: '車程約 55 分鐘，入住西部獨棟民宿（附近為節目嘉賓入住之 Stay Neureut 質感石屋區域）', cost: '-' }
       ]
     },
     2: {
       color: 'var(--d2)',
-      summary: '💡 當日動線：梨湖小馬燈塔 ➔ 涯月海景午餐 ➔ Umu布丁 ➔ Haribo軟糖展 ➔ AMA杜拜巧克力 ➔ 狹才海邊咖啡 ➔ 黑豬肉晚餐 ➔ 黑膠酒吧。',
+      summary: '💡 當日動線：梨湖小馬燈塔 ➔ 涯月海景與《母胎單身》約會點 ➔ Umu布丁 ➔ Haribo展 ➔ 杜拜巧克力 ➔ 狹才海邊咖啡 ➔ 黑豬肉晚餐 ➔ 黑膠酒吧。',
       items: [
         { time: '09:35-10:20', title: '梨湖木筏海邊 紅白小馬燈塔', kr: '이호테우해변 말등대', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=Iho+Tewu+Beach', desc: '防波堤招牌紅白小馬燈塔拍照', cost: '免費' },
         { time: '10:30-11:15', title: 'my jeju GIFT 紀念品店', kr: '마이제주기프트', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=My+Jeju+Gift', desc: '挑選濟州特色手作紀念品', cost: '自費採買' },
-        { time: '11:35-12:45', title: '午餐：翰林大鰻魚 (備案：Noraba章魚麵)', kr: '한림통큰장어 / 노라바', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=Hanlim+Eel', desc: '炭烤厚切鰻魚；Noraba為人氣海鮮拉麵備案', cost: '約 ₩80,000 (NT$2,000)' },
+        { 
+          time: '11:35-12:45', 
+          title: '午餐：涯月海景與美食備案 (含《母胎單身》咖啡約會點)', 
+          kr: '애월 맛집 및 촬영지', 
+          desc: '彈性選擇海景碳烤鰻魚或人氣海鮮拉麵',
+          subPlaces: [
+            { name: '翰林大鰻魚', kr: '한림통큰장어', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=Hanlim+Eel', desc: '炭烤厚切營養鰻魚' },
+            { name: 'Noraba 海鮮拉麵', kr: '노라바', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=Noraba+Jeju', desc: '無敵海景章魚海鮮拉麵' },
+            { name: 'Aewol The Sunset (母胎單身約會咖啡廳)', kr: '애월더선셋', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=Aewol+The+Sunset', desc: '男女主角欣賞落日、談心的絕美海景第一排拍攝地' }
+          ],
+          cost: '約 ₩80,000 (NT$2,000)' 
+        },
         { time: '12:55-13:30', title: 'Umu 布丁 (買1份分嚐)', kr: '우무 한림본점', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=Umu+Jeju', desc: '4人買1杯嚐鮮！肥皂務必放托運', cost: '約 ₩6,800 (NT$170)', tag: 'tag-snack', tagText: '建議分食' },
         { time: '14:00-15:45', title: 'Haribo 小熊軟糖展', kr: '하리보 해피월드', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=Haribo+Happy+World+Jeju', desc: '巨型童趣軟糖打卡樂園（室內免淋雨）', cost: '₩18,000/人 (NT$450/人)', tag: 'tag-booking', tagText: '⚠️ 建議先買票' },
         { time: '16:10-16:45', title: 'AMA 杜拜巧克力 ＆ COO濟州杜拜Q彈餅乾', kr: '아마 애월 / coojeju', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=coojeju', desc: '品嚐開心果脆絲杜拜巧克力與 COO 杜拜 Q 彈餅乾（可帶上飛機，冷藏7天/冷凍1個月）', cost: '約 ₩25,000 (NT$625)', tag: 'tag-snack', tagText: '杜拜甜點' },
@@ -368,7 +398,7 @@
     },
     3: {
       color: 'var(--d3)',
-      summary: '💡 當日動線：石子森林 ➔ 雪綠茶博物館吃抹茶冰 ➔ Perlo窯烤披薩 ➔ 山茶花之丘 ➔ 柱狀節理帶 ➔ 橘花閣樓 ➔ 偶來市場吃糖葫蘆。',
+      summary: '💡 當日動線：石子森林 ➔ 雪綠茶博物館吃抹茶冰 ➔ Perlo窯烤披薩 ➔ 山茶花之丘 ➔ 大浦柱狀節理帶 ➔ 橘花閣樓 ➔ 偶來市場。',
       items: [
         { time: '08:50-09:30', title: '晨間散策：石子森林', kr: '돌코리숲', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=Dolcori+Forest', desc: '幽靜森系秘境步道散步', cost: '免費' },
         { time: '09:40-11:30', title: 'Osulloc 雪綠茶博物館', kr: '오설록 티 뮤지엄', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=Osulloc+Tea+Museum', desc: '純抹茶霜淇淋一生推！千萬別點橘子霜淇淋', cost: '約 ₩30,000 (NT$750)', tag: 'tag-hot', tagText: '必吃抹茶冰' },
@@ -381,14 +411,14 @@
     },
     4: {
       color: 'var(--d4)',
-      summary: '💡 當日動線：9.81 Park重力賽車刷Master ➔ Saebil芒草咖啡 ➔ Arte Museum光影展 ➔ 橫越遷入城山 ➔ 被褐懷玉生魚片晚餐。',
+      summary: '💡 當日動線：9.81 Park重力賽車刷Master ➔ Saebil芒草咖啡(母胎單身約會地) ➔ Arte Museum光影展 ➔ 橫越遷入城山 ➔ 被褐懷玉生魚片晚餐。',
       items: [
         { time: '10:00', title: '西部民宿退房（行李全上車）', kr: '체크아웃', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=Jeju', desc: '出發前往 9.81 重力賽車樂園', cost: '-' },
-        { time: '10:40-13:30', title: '9.81 Park 濟州重力賽車', kr: '9.81파크 제주', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=9.81+Park', desc: '買710元套票！賽道①拍正面美照，賽道②走外內外刷 Master 賽道！', cost: '約 ₩28,400/人 (NT$710/人)', tag: 'tag-booking', tagText: '⚠️ 強烈建議提前預約' },
-        { time: '13:40-15:00', title: '午餐：Saebil 景觀咖啡廳', kr: '새빌 (Saebil)', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=Cafe+Saebil', desc: '正對曉星岳粉紅芒草！《母胎單身》同款背景地', cost: '約 ₩45,000 (NT$1,125)' },
+        { time: '10:40-13:30', title: '9.81 Park 濟州重力賽車 (含母胎單身遊樂場景)', kr: '9.81파크 제주', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=9.81+Park', desc: '買710元套票！賽道①拍正面美照，賽道②走外內外刷 Master 賽道！（節目中嘉賓刺激競速場地）', cost: '約 ₩28,400/人 (NT$710/人)', tag: 'tag-booking', tagText: '⚠️ 強烈建議提前預約' },
+        { time: '13:40-15:00', title: '午餐：Saebil 景觀咖啡廳 (母胎單身經典約會地)', kr: '새빌 (Saebil)', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=Cafe+Saebil', desc: '正對曉星岳粉紅芒草！《母胎單身》同款背景地與浪漫對話戶外景點', cost: '約 ₩45,000 (NT$1,125)' },
         { time: '15:15-16:45', title: 'Arte Museum Jeju 光影藝術館', kr: '아르떼뮤지엄 제주', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=Arte+Museum+Jeju', desc: '巨浪與流動瀑布震撼視覺沉浸展（室內不受天氣影響）', cost: '₩17,000/人 (NT$425/人)', tag: 'tag-booking', tagText: '⚠️ 建議先買票' },
         { time: '17:00-18:20', title: '橫越遷入東部城山民宿', kr: '서귀포시 성산읍', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=Seongsan-eup', desc: '入住城山邑新川里海邊民宿', cost: '-' },
-        { time: '19:40-21:15', title: '晚餐：피갈회옥 (被褐懷玉)', kr: '피갈회옥', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=Pigalhoeok', desc: '新鮮活魚生魚片與海鮮盛宴！', cost: '約 ₩110,000 (NT$2,750)' }
+        { time: '19:40-21:15', title: '晚餐：피갈회옥 (被褐懷玉 - 母胎單身相昊同款生魚片餐廳)', kr: '피갈회옥', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=Pigalhoeok', desc: '新鮮活魚生魚片與海鮮盛宴！《母胎單身》中男主角獨自大啖生魚片的知名餐廳', cost: '約 ₩110,000 (NT$2,750)', tag: 'tag-kdrama', tagText: '母胎單身同款' }
       ]
     },
     5: {
@@ -415,20 +445,40 @@
         { time: '12:30-15:00', title: '海景馬場咖啡放空 / 水上星球', kr: '오른 (ORrrN)', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=Aqua+Planet+Jeju', desc: '草甸看馬餵馬、或參觀巨型水族館', cost: '約 ₩35,000 (NT$875)' },
         { time: '15:20-16:40', title: '涉地可支', kr: '섭지코지', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=Seopjikoji', desc: '《All In》經典童話海岬、白色燈塔', cost: '免費 (停車 ₩3,000)' },
         { time: '17:00-18:30', title: 'Cafe The Container 橘子採收箱咖啡', kr: '카페 더 콘테이너', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=Cafe+The+Container', desc: '巨大鮮黃橘子採收籃建築打卡拍照', cost: '約 ₩32,000 (NT$800)' },
-        { time: '19:00-20:30', title: '晚餐首選：Haewat 白帶魚燉鍋 (備案：廷珉家帶魚)', kr: '해왓 / 정민이네 갈치', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=Haewat', desc: '評分 9/10！城山厚切燉白帶魚；備案廷珉家帶魚會協助去骨', cost: '約 ₩88,000 (NT$2,200)', tag: 'tag-rate', tagText: '評分 9/10' }
+        { 
+          time: '19:00-20:30', 
+          title: '晚餐：Haewat 白帶魚燉鍋 ＆ 在地美食備案', 
+          kr: '성산 저녁 맛집', 
+          desc: '彈性選擇厚切燉帶魚或去骨帶魚料理',
+          subPlaces: [
+            { name: 'Haewat 白帶魚燉鍋 (評分 9/10)', kr: '해왓', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=Haewat', desc: '城山在地厚切燉白帶魚與海膽湯' },
+            { name: '廷珉家帶魚 (去骨備案)', kr: '정민이네 갈치', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=Jeongminine+Galchi', desc: '店家會協助去骨、用餐同時欣賞月汀里/城山海景' }
+          ],
+          cost: '約 ₩88,000 (NT$2,200)' 
+        }
       ]
     },
     7: {
       color: 'var(--d7)',
-      summary: '💡 當日動線：倫敦貝果抽號碼牌 ➔ 月汀里果凍海 ➔ Audrant大蒜麵包 ➔ Glencoe花園 ➔ 史努比庭園 ➔ Olive Young血拼 ➔ 熟成到黑豬肉晚宴（備案月高家）。',
+      summary: '💡 當日動線：倫敦貝果抽號碼牌 ➔ 月汀里果凍海 ➔ Audrant大蒜麵包 ➔ Glencoe花園 ➔ 史努比庭園 ➔ Olive Young血拼 ➔ 熟成到黑豬肉晚宴(備案月高家)。',
       items: [
-        { time: '08:45-10:45', title: 'London Bagel Museum 倫敦貝果', kr: '런던베이글뮤지엄 제주', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=London+Bagel+Museum+Jeju', desc: '⚠️ 先線上抽號碼牌！2人分吃1顆招牌蔥乳酪貝果', cost: '約 ₩30,000 (NT$750)', tag: 'tag-booking', tagText: '⚠️ 建議提前抽號' },
+        { time: '08:45-10:45', title: 'London Bagel Museum 倫敦貝果', kr: '런던베이글뮤지엄 제주', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=London+Bagel+Museum+Jeju', desc: '⚠️ 先線上抽號碼牌！2人分吃1顆蔥乳酪貝果', cost: '約 ₩30,000 (NT$750)', tag: 'tag-booking', tagText: '⚠️ 建議提前抽號' },
         { time: '11:00-12:30', title: '月汀里海水浴場 (果凍海)', kr: '월정리해수욕장', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=Woljeongri+Beach', desc: '風車海景！彩色木椅拍照', cost: '免費' },
         { time: '12:45-13:45', title: '必買名點：Audrant Bakery 大蒜麵包', kr: '오드랑베이커리', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=Audrant+Bakery', desc: '評分 10/10！外層甜脆蒜香奶醬濃郁無比', cost: '約 ₩15,000 (NT$375)', tag: 'tag-rate', tagText: '評分 10/10' },
         { time: '14:30-16:00', title: 'Cafe Glencoe (花園莊園)', kr: '카페글렌코', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=Cafe+Glencoe', desc: '大片粉紅亂子草海、歐風莊園庭院', cost: '低消飲品約 ₩28,000' },
         { time: '16:30-18:00', title: 'Snoopy Garden (史努比庭園)', kr: '스누피가든', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=Snoopy+Garden', desc: '戶外森林與室內展館公仔拍照超療癒', cost: '₩18,000/人 (NT$450/人)', tag: 'tag-booking', tagText: '⚠️ 建議先買票' },
         { time: '18:00-19:00', title: '🛍️ Olive Young 美妝與伴手禮採購', kr: '올리브영', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=Olive+Young+Jeju', desc: '掃貨韓國美妝、保養品與伴手禮', cost: '自費採買' },
-        { time: '19:15-21:15', title: '告別晚宴：熟成到 (備案：月高家黑豬肉)', kr: '숙성도 / 월고가', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=Sukseondo', desc: '頂級熟成黑豬肉（評價兩極，若客滿可改去月高家吃美味炒飯與代烤豬肉）', cost: '約 ₩110,000 (NT$2,750)', tag: 'tag-rate', tagText: '評分兩極/備案月高家' },
+        { 
+          time: '19:15-21:15', 
+          title: '告別晚宴：黑豬肉名店彈性選擇 (熟成到 ＆ 月高家)', 
+          kr: '제주 흑돼지 저녁', 
+          desc: '頂級黑豬肉饗宴，可依現場排隊狀況彈性前往',
+          subPlaces: [
+            { name: '熟成到 (Sukseondo / 評分兩極)', kr: '숙성도', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=Sukseondo', desc: '頂級乾式熟成黑豬肉天花板（評價兩極）' },
+            { name: '月高家黑豬肉 (月汀本店 / 備案推薦)', kr: '월고가 본점', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=Wolpork+Jeju', desc: '專人桌邊代烤脆皮厚切黑豬肉與美味炒飯' }
+          ],
+          cost: '約 ₩110,000 (NT$2,750)' 
+        },
         { time: '21:30-23:00', title: '全體大打包與洗烘衣', kr: '짐 정리', desc: '最後一晚，洗脫烘與行李秤重收納', cost: '-' }
       ]
     },
@@ -437,7 +487,17 @@
       summary: '💡 當日動線：退房提早返回市區 ➔ 11:30 用午餐(機會生魚片/三姓穴) ➔ 七星購物街最後血拼 ➔ 16:15 還車 ➔ 機場離境賦歸。',
       items: [
         { time: '10:00-11:00', title: '退房返回濟州市區', kr: '제주시내 이동', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=Jeju-si', desc: '車程約 60 分鐘', cost: '-' },
-        { time: '11:15-12:45', title: '提早午餐：機會生魚片 / 三姓穴海鮮', kr: '기회횟집 / 삼성혈해물탕', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=Kihoe+Sashimi+Jeju', desc: '推薦東門市場旁「機會生魚片」硬殼蝦，提早用餐避免下午趕車', cost: '約 ₩80,000 (NT$2,000)' },
+        { 
+          time: '11:15-12:45', 
+          title: '提早午餐：機會生魚片 ＆ 三姓穴海鮮湯', 
+          kr: '제주시 점심 맛집', 
+          desc: '東門市場旁海鮮午宴，提早用餐避免下午趕車',
+          subPlaces: [
+            { name: '機會生魚片', kr: '기회횟집', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=Kihoe+Sashimi+Jeju', desc: '東門市場旁推薦必吃硬殼蝦與新鮮刺身' },
+            { name: '三姓穴海鮮湯本店 (評價兩極備案)', kr: '삼성혈해물탕', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=Samseonghyeol+Haemultang', desc: '浮誇滿滿活海鮮海鮮湯（點小份嚐鮮即可）' }
+          ],
+          cost: '約 ₩80,000 (NT$2,000)' 
+        },
         { time: '13:00-15:30', title: '七星購物街 & 中央地下商街', kr: '칠성로쇼핑거리', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=Chilsungro+Shopping+Street', desc: '採購美妝與最後伴手禮', cost: '自費採買' },
         { time: '16:00-16:30', title: '樂天租車加滿油還車', kr: '롯데렌터카 반납', naver: 'https://naver.me/Gby29mYp', google: 'https://maps.google.com/?q=Lotte+Rent-a-Car+Jeju', desc: '專人點交車況，搭接駁車前往航廈', cost: '-' },
         { time: '16:45', title: '濟州機場退稅與登機手續', kr: '제주국제공항', naver: 'https://naver.me/5U34X12g', google: 'https://maps.google.com/?q=Jeju+International+Airport', desc: '機台辦理退稅、免稅提貨', cost: '-' },
@@ -451,22 +511,45 @@
     const data = itineraryData[day];
     const container = document.getElementById('day-content');
     container.innerHTML = `<div class="day-summary-banner">${data.summary}</div>`;
+    
     data.items.forEach(item => {
       const card = document.createElement('div');
       card.className = 'schedule-card';
       card.style.borderLeftColor = data.color;
       let tagHtml = item.tag ? `<span class="tag-badge ${item.tag}">${item.tagText}</span>` : '';
+      
+      let subPlacesHtml = '';
+      if (item.subPlaces && item.subPlaces.length > 0) {
+        item.subPlaces.forEach(sub => {
+          subPlacesHtml += `
+            <div class="sub-place-box">
+              <div class="sub-place-title">📍 ${sub.name}</div>
+              <div class="sub-place-kr">${sub.kr}</div>
+              <div class="sub-place-desc">${sub.desc}</div>
+              <div class="map-buttons">
+                <a href="${sub.naver}" target="_blank" class="map-btn-naver">Naver 導航</a>
+                <a href="${sub.google}" target="_blank" class="map-btn-google">Google 導航</a>
+              </div>
+            </div>
+          `;
+        });
+      } else {
+        subPlacesHtml = `
+          <div class="card-kr">📍 ${item.kr}</div>
+          <div class="map-buttons">
+            <a href="${item.naver}" target="_blank" class="map-btn-naver">Naver 導航</a>
+            <a href="${item.google}" target="_blank" class="map-btn-google">Google 導航</a>
+          </div>
+        `;
+      }
+
       card.innerHTML = `
         <div class="card-header">
           <span class="card-time" style="background: ${data.color}20; color: ${data.color};">${item.time}</span>
           <div>${tagHtml}</div>
         </div>
         <div class="card-title">${item.title}</div>
-        <div class="card-kr">📍 ${item.kr}</div>
-        <div class="map-buttons">
-          <a href="${item.naver}" target="_blank" class="map-btn-naver">Naver 導航</a>
-          <a href="${item.google}" target="_blank" class="map-btn-google">Google 導航</a>
-        </div>
+        ${subPlacesHtml}
         <div class="card-desc">${item.desc}</div>
         <div class="card-cost">預估費用：${item.cost}</div>
       `;
@@ -486,21 +569,50 @@
     let foundCount = 0;
     Object.keys(itineraryData).forEach(dayKey => {
       itineraryData[dayKey].items.forEach(item => {
-        if (item.title.toLowerCase().includes(q) || item.kr.toLowerCase().includes(q) || item.desc.toLowerCase().includes(q)) {
+        let match = item.title.toLowerCase().includes(q) || item.kr.toLowerCase().includes(q) || item.desc.toLowerCase().includes(q);
+        if (item.subPlaces) {
+          item.subPlaces.forEach(sub => {
+            if (sub.name.toLowerCase().includes(q) || sub.kr.toLowerCase().includes(q) || sub.desc.toLowerCase().includes(q)) match = true;
+          });
+        }
+        
+        if (match) {
           foundCount++;
           const card = document.createElement('div');
           card.className = 'schedule-card';
           card.style.borderLeftColor = itineraryData[dayKey].color;
+          
+          let subPlacesHtml = '';
+          if (item.subPlaces && item.subPlaces.length > 0) {
+            item.subPlaces.forEach(sub => {
+              subPlacesHtml += `
+                <div class="sub-place-box">
+                  <div class="sub-place-title">📍 ${sub.name}</div>
+                  <div class="sub-place-kr">${sub.kr}</div>
+                  <div class="sub-place-desc">${sub.desc}</div>
+                  <div class="map-buttons">
+                    <a href="${sub.naver}" target="_blank" class="map-btn-naver">Naver 導航</a>
+                    <a href="${sub.google}" target="_blank" class="map-btn-google">Google 導航</a>
+                  </div>
+                </div>
+              `;
+            });
+          } else {
+            subPlacesHtml = `
+              <div class="card-kr">📍 ${item.kr}</div>
+              <div class="map-buttons">
+                <a href="${item.naver}" target="_blank" class="map-btn-naver">Naver 導航</a>
+                <a href="${item.google}" target="_blank" class="map-btn-google">Google 導航</a>
+              </div>
+            `;
+          }
+
           card.innerHTML = `
             <div class="card-header">
               <span class="card-time" style="background: #E5E7EB; color: #374151;">D${dayKey} ｜ ${item.time}</span>
             </div>
             <div class="card-title">${item.title}</div>
-            <div class="card-kr">📍 ${item.kr}</div>
-            <div class="map-buttons">
-              <a href="${item.naver}" target="_blank" class="map-btn-naver">Naver 導航</a>
-              <a href="${item.google}" target="_blank" class="map-btn-google">Google 導航</a>
-            </div>
+            ${subPlacesHtml}
             <div class="card-desc">${item.desc}</div>
             <div class="card-cost">預估費用：${item.cost}</div>
           `;
@@ -516,7 +628,8 @@
   let currentDay = 1;
   document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', function() {
-      document.getElementById('globalSearch').value = '';
+      const searchInput = document.getElementById('globalSearch');
+      if(searchInput) searchInput.value = '';
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
       this.classList.add('active');
       currentDay = this.getAttribute('data-day');
