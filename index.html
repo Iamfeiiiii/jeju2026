@@ -45,16 +45,17 @@
     .schedule-card { background: var(--card-bg); border-radius: 16px; padding: 16px; margin-bottom: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.04); border-left: 5px solid #DDD; }
     .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
     .card-time { font-size: 12px; font-weight: 800; padding: 2px 8px; border-radius: 6px; }
-    .card-title { font-size: 16px; font-weight: 800; margin-bottom: 6px; }
+    .card-title { font-size: 16px; font-weight: 800; margin-bottom: 4px; }
+    .card-kr { font-size: 12px; color: #6366F1; font-weight: 600; margin-bottom: 6px; }
     .card-desc { font-size: 13px; color: var(--sub-text); line-height: 1.5; margin-bottom: 6px; }
     
-    /* 標籤設計 */
     .tag-badge { display: inline-block; font-size: 11px; padding: 2px 7px; border-radius: 6px; margin-right: 4px; margin-bottom: 4px; font-weight: 700; }
     .tag-hot { background: #FEE2E2; color: #DC2626; }
     .tag-kdrama { background: #E0E7FF; color: #4338CA; }
     .tag-dating { background: #FCE7F3; color: #DB2777; }
     .tag-snack { background: #FEF3C7; color: #D97706; }
     .tag-rain { background: #E0F2FE; color: #0369A1; }
+    .tag-rate { background: #D1FAE5; color: #065F46; }
 
     .card-cost { font-size: 12px; font-weight: 800; color: #E63946; margin-top: 6px; border-top: 1px dashed #E5E7EB; padding-top: 6px; }
 
@@ -64,12 +65,23 @@
     .rule-item { margin-bottom: 10px; font-size: 13px; line-height: 1.5; }
     .rule-item strong { color: #111827; }
 
-    /* 牛島即時視訊按鈕 */
-    .live-btn { display: block; width: 100%; text-align: center; background: #028090; color: white; padding: 12px; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 14px; box-shadow: 0 4px 10px rgba(2,128,144,0.3); }
+    .member-banner { background: #FEF3C7; color: #92400E; padding: 8px 12px; border-radius: 10px; font-size: 13px; font-weight: 800; margin-bottom: 14px; text-align: center; }
+    .eat-box { background: #FFFBEB; border-left: 4px solid #F59E0B; padding: 12px; border-radius: 8px; margin-bottom: 14px; font-size: 13px; line-height: 1.5; color: #78350F; }
 
-    /* 行李清單 Checkbox */
-    .checklist-group { margin-bottom: 12px; }
-    .checklist-title { font-size: 14px; font-weight: 700; color: #374151; margin-bottom: 6px; }
+    /* 避雷列表 */
+    .pitfall-bad { border-left: 4px solid #EF4444; padding-left: 10px; margin-bottom: 12px; font-size: 13px; }
+    .pitfall-split { border-left: 4px solid #F59E0B; padding-left: 10px; margin-bottom: 12px; font-size: 13px; }
+    .pitfall-good { border-left: 4px solid #10B981; padding-left: 10px; margin-bottom: 12px; font-size: 13px; }
+
+    /* 按鈕樣式 */
+    .live-btn { display: block; width: 100%; text-align: center; background: #028090; color: white; padding: 12px; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 14px; box-shadow: 0 4px 10px rgba(2,128,144,0.3); margin-top: 8px; }
+    .map-btn { display: inline-block; background: #03C75A; color: white; padding: 3px 8px; border-radius: 6px; text-decoration: none; font-size: 11px; font-weight: 700; margin-left: 6px; }
+
+    /* 行李清單分頁 */
+    .luggage-tabs { display: flex; gap: 8px; margin-bottom: 12px; }
+    .luggage-tab { flex: 1; text-align: center; padding: 8px; border-radius: 10px; background: #E5E7EB; font-size: 13px; font-weight: 700; cursor: pointer; color: #4B5563; }
+    .luggage-tab.active { background: #FF7A00; color: white; }
+    .checklist-title { font-size: 14px; font-weight: 700; color: #1F2937; margin: 10px 0 6px 0; border-bottom: 2px solid #F3F4F6; padding-bottom: 4px; }
     .check-item { display: flex; align-items: center; gap: 8px; font-size: 13px; margin-bottom: 6px; color: #4B5563; }
     .check-item input[type="checkbox"] { width: 16px; height: 16px; accent-color: #FF7A00; }
 
@@ -77,11 +89,11 @@
     .calc-box { display: flex; gap: 8px; align-items: center; margin-top: 10px; }
     .calc-box input { width: 50%; padding: 10px; border-radius: 10px; border: 1px solid #D1D5DB; font-size: 15px; font-weight: 600; }
 
-    /* App 底部導航 */
+    /* 底部導航 */
     .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 62px; background: rgba(255,255,255,0.96); backdrop-filter: blur(12px); display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #E5E7EB; z-index: 1000; }
     .nav-item { display: flex; flex-direction: column; align-items: center; font-size: 11px; color: var(--sub-text); text-decoration: none; cursor: pointer; }
     .nav-item.active { color: #FF7A00; font-weight: 800; }
-    .nav-icon { font-size: 19px; margin-bottom: 2px; }
+    .nav-icon { font-size: 18px; margin-bottom: 2px; }
 
     .hidden { display: none; }
   </style>
@@ -110,80 +122,179 @@
     <div id="day-content" style="margin-top: 12px;"></div>
   </div>
 
-  <!-- 頁面 2：自駕與行車守則 -->
-  <div id="page-drive" class="hidden">
+  <!-- 頁面 2：行前公約（共識地基）與自駕守則 -->
+  <div id="page-rules" class="hidden">
     <div class="section-card">
-      <div class="section-title">🚗 韓國駕駛關鍵 6 大守則</div>
-      <div class="rule-item"><strong>1. 紅燈右轉新規：</strong>遇紅燈必須完全煞停（Stop），禮讓斑馬線行人後方能右轉。有專用右轉箭頭燈時依號誌為準。</div>
-      <div class="rule-item"><strong>2. 彩色引導車道：</strong>路口與匝道跟著地面「粉紅、綠、藍色」標線走，Naver Map 語音會提示。</div>
-      <div class="rule-item"><strong>3. 測速照相：</strong>市區 50 km/h、學區 30 km/h。固定桿與區間測速極多，罰單直接自信用卡扣款。</div>
+      <div class="section-title">🤝 出遊十大共識地基</div>
+      <div class="member-banner">旅客名單：Hsi、Fei、Elion、Eva</div>
+
+      <div class="eat-box">
+        <strong>🍽️ 核心飲食防踩雷共識：</strong><br>
+        「吃東西絕對不要失心瘋！」名店與未吃過的品項，一律先點小份嚐嚐味道，覺得驚艷再加點。避免一人點一份大踩雷，浪費錢又傷腸胃。
+      </div>
+
+      <div class="rule-item"><strong>1. 安全第一不冒險：</strong>遵守景點安全規範，過馬路與上下車注意來車，不走危險路線。</div>
+      <div class="rule-item"><strong>2. 全程團進團出：</strong>基於安全不單飛，暫離上廁所或買東西務必先報備一聲。</div>
+      <div class="rule-item"><strong>3. 貴重隨身、離座回頭看：</strong>護照、錢包、手機「絕對不離身」；每次下車、離店、退房回頭檢查，避免遺漏。</div>
+      <div class="rule-item"><strong>4. 不當事後諸葛：</strong>現場全力配合，遇突發狀況不抱怨、不說「早知道」，大家一起面對解決。</div>
+      <div class="rule-item"><strong>5. 需求主動提出：</strong>累了、餓了、想上廁所立刻說，絕不勉強硬撐。</div>
+      <div class="rule-item"><strong>6. 準時集合出發：</strong>出發前 10 分鐘搞定穿鞋與如廁，不拖延後續行程。</div>
+      <div class="rule-item"><strong>7. 角色互相補位：</strong>找路、拿東西、顧隨身物品大家互相照應，不全丟給一人。</div>
+      <div class="rule-item"><strong>8. 快樂大於打卡：</strong>行程是參考不是 KPI，累了隨時安排中途休息放空。</div>
+      <div class="rule-item"><strong>9. 每天睡前對焦：</strong>每晚花 3 分鐘確認隔天出發時間與行程共識。</div>
+      <div class="rule-item"><strong>10. 購物理性消費：</strong>看清需求與行李容量再買，避免衝動購物堆積重量。</div>
+    </div>
+
+    <div class="section-card">
+      <div class="section-title">🚗 韓國自駕安全 6 大鐵律</div>
+      <div class="rule-item"><strong>1. 紅燈右轉：</strong>遇紅燈必須完全煞停（Stop），確認斑馬線無行人後方能右轉。有專用右轉箭頭綠燈時依號誌。</div>
+      <div class="rule-item"><strong>2. 彩色車道：</strong>交流道跟著地面「粉紅、綠、藍色」標線走，Naver Map 會語音提醒。</div>
+      <div class="rule-item"><strong>3. 嚴格限速：</strong>市區 50 km/h、學區 30 km/h。固定桿與區間測速極多，罰單直接自信用卡扣款。</div>
       <div class="rule-item"><strong>4. 加油分色：</strong>黃色油槍（Gasoline 汽油）、藍/黑油槍（Diesel 柴油）。</div>
-      <div class="rule-item"><strong>5. 停車格地雷：</strong>地面噴有「數字編號」為當地居民月租車位，千萬不可停！</div>
-      <div class="rule-item"><strong>6. 濟州島無收費高速公路：</strong>不需租借 Hi-Pass 卡。</div>
+      <div class="rule-item"><strong>5. 停車注意：</strong>地面噴有「數字編號」為居民指定車位，千萬不可停！</div>
     </div>
   </div>
 
-  <!-- 頁面 3：牛島海況與即時畫面 -->
+  <!-- 頁面 3：避雷與大推專屬清單 -->
+  <div id="page-pitfall" class="hidden">
+    <div class="section-card">
+      <div class="section-title">⚖️ 網友血淚真實避雷 vs 大推</div>
+      
+      <div style="font-size:14px; font-weight:800; color:#DC2626; margin:10px 0 6px 0;">🔴 絕對避雷黑名單（直接跳過）</div>
+      <div class="pitfall-bad">
+        <strong>❌ 咸德海灘旁「四季餐廳」：</strong>嚴重歧視華語旅客，欺騙沒有套餐強迫單點貴兩倍，直接封鎖。
+      </div>
+      <div class="pitfall-bad">
+        <strong>❌ 涯月「生魚片西邊 (Eseo Tteugenne)」：</strong>生魚片上桌是常溫，青花魚腥味超重，網友吃完狂拉肚子。
+      </div>
+      <div class="pitfall-bad">
+        <strong>❌ 細花排骨：</strong>肉質乾硬調味死鹹，多位網友評為牛島周邊大雷。
+      </div>
+      <div class="pitfall-bad">
+        <strong>❌ 立體橘子造型冰淇淋：</strong>純拍照道具，化學香精味極重，拍別人手上拿的就好。
+      </div>
+
+      <div style="font-size:14px; font-weight:800; color:#D97706; margin:14px 0 6px 0;">🟡 評價兩極區（建議4人買一份分食）</div>
+      <div class="pitfall-split">
+        <strong>⚠️ 三姓穴海鮮湯本店：</strong>網友反映蝦蟹不夠新鮮、湯頭只有死鹹辣味。若要去，4人點小份嚐鮮即可，不花大錢點特大鍋。
+      </div>
+      <div class="pitfall-split">
+        <strong>⚠️ Umu 布丁：</strong>口感水感偏重，一人一杯負擔大，4人買 1 杯經典卡士達分嚐拍照即可；店內肥皂好用但<strong>依法只能托運、嚴禁隨身手提</strong>！
+      </div>
+      <div class="pitfall-split">
+        <strong>⚠️ 倫敦貝果博物館：</strong>排隊 2~3 小時落差大，一早先抽號碼牌，有順路叫到號再去，買 2 顆分食。
+      </div>
+      <div class="pitfall-split">
+        <strong>⚠️ Osulloc 橘子汁加鮮奶霜淇淋：</strong>千萬別點！酸汁遇奶凝結被評為像嘔吐味；<strong>純抹茶霜淇淋則是一生推</strong>！
+      </div>
+
+      <div style="font-size:14px; font-weight:800; color:#059669; margin:14px 0 6px 0;">🟢 在地大推實測高分名店</div>
+      <div class="pitfall-good">
+        <strong>🌟 Audrant Bakery 大蒜麵包 (10/10)：</strong>咸德海灘旁，濃郁蒜香奶醬外脆內甜，吃過驚艷。
+      </div>
+      <div class="pitfall-good">
+        <strong>🌟 熟成到 (10/10)：</strong>頂級乾式熟成黑豬肉天花板，專人桌邊炙烤。
+      </div>
+      <div class="pitfall-good">
+        <strong>🌟 Haewat 白帶魚燉鍋 (9/10)：</strong>城山在地名店，厚切白帶魚醬汁濃郁下飯。
+      </div>
+      <div class="pitfall-good">
+        <strong>🌟 東門市場橘子糖葫蘆：</strong>整顆濟州蜜柑爆汁脆皮，比草莓好吃極多。
+      </div>
+      <div class="pitfall-good">
+        <strong>🌟 Perlo 窯烤餐酒館：</strong>安德面當地人私藏義式柴燒披薩與海鮮麵。
+      </div>
+    </div>
+  </div>
+
+  <!-- 頁面 4：牛島海況與渡輪 -->
   <div id="page-udo" class="hidden">
     <div class="section-card">
-      <div class="section-title">🚢 牛島即時監控畫面</div>
-      <p class="card-desc">出發前往牛島當天早上，請先點擊下方連結確認天津港與下牛木洞港現場人車排隊與渡輪海況：</p>
+      <div class="section-title">🚢 牛島渡輪導航與時刻表</div>
+      <div class="rule-item"><strong>⚠️ 導航防走錯：</strong>請務必搜尋「城山浦港綜合客輪客運站（성산포항 종합여객터미널）」，避免白走冤枉路！
+        <a href="https://naver.me/Gby29mYp" target="_blank" class="map-btn">Naver Map 導航 ↗</a>
+      </div>
+      <div class="rule-item"><strong>⏱️ 9月渡輪時刻：</strong>城山出發 08:00～18:00 每 30 分鐘一班；牛島末班船為 18:00（最晚 17:30 抵達碼頭）。</div>
+      <p class="card-desc">出發當天早上請點擊下方按鈕確認即時影像：</p>
       <a href="https://chengshan.kr" target="_blank" class="live-btn">打開 chengshan.kr 觀看即時畫面 ↗</a>
       <div style="margin-top:14px;">
-        <span class="tag-badge tag-snack">牛島必吃</span>
+        <span class="tag-badge tag-snack">牛島精選名店</span>
         <p class="card-desc">1. <strong>原祖牛島花生夾心餅本店 Peanut：</strong>下古水洞海灘對面，現烤花生夾心餅與花生霜淇淋。</p>
-        <p class="card-desc">2. <strong>海女水產拉麵：</strong>整隻活章魚、鮑魚海鮮拉麵配漢拏山炒飯。</p>
+        <p class="card-desc">2. <strong>Seomsonai 奶油炒碼麵：</strong>台灣租車店員激推，奶油海鮮炒碼麵配薄皮披薩。</p>
       </div>
     </div>
   </div>
 
-  <!-- 頁面 4：極致 J 人 行李清單與氣候穿搭 -->
+  <!-- 頁面 5：極致 J 人 雙軌行李清單與工具 -->
   <div id="page-pack" class="hidden">
     <div class="section-card">
-      <div class="section-title">🌤️ 9/14-21 天氣與穿搭指南</div>
-      <div class="rule-item"><strong>氣溫區間：</strong>約 20°C ～ 27°C（初秋舒適，早晚海風吹拂體感約 18°C）。</div>
-      <div class="rule-item"><strong>穿搭公式：</strong>短袖/薄長袖 + 一件連帽防風薄外套/防曬罩衫（海風大必備）。</div>
-      <div class="rule-item"><strong>下身鞋履：</strong>好走長褲、防潑水褲，搭配抓地力防滑慢跑鞋（走階梯必備）。</div>
-    </div>
-    <div class="section-card">
-      <div class="section-title">🎒 超詳細行李準備清單</div>
-      <div class="checklist-group">
-        <div class="checklist-title">📂 證件財務（隨身攜帶）</div>
+      <div class="section-title">🎒 行李打包檢核表</div>
+      <div class="luggage-tabs">
+        <div class="luggage-tab active" onclick="switchLuggage('carry', this)">👜 手提行李 (隨身)</div>
+        <div class="luggage-tab" onclick="switchLuggage('check', this)">🧳 托運行李 (箱裝)</div>
+      </div>
+      
+      <!-- 手提行李清單 -->
+      <div id="luggage-carry">
+        <div class="checklist-title">📂 重要證件與財務（不可托運）</div>
         <label class="check-item"><input type="checkbox"> 護照正本（效期6個月以上）</label>
-        <label class="check-item"><input type="checkbox"> 台灣駕照正本（兩位駕駛必帶）</label>
-        <label class="check-item"><input type="checkbox"> 國際駕照 IDP（兩位駕駛必帶）</label>
-        <label class="check-item"><input type="checkbox"> 海外回饋信用卡（Visa/Master）</label>
-        <label class="check-item"><input type="checkbox"> 韓元現金 / WOWPASS 卡</label>
+        <label class="check-item"><input type="checkbox"> 台灣駕照正本（Fei & Hsi 開車必帶）</label>
+        <label class="check-item"><input type="checkbox"> 國際駕照 IDP（Fei & Hsi 開車必帶）</label>
+        <label class="check-item"><input type="checkbox"> 信用卡（Visa/Master 至少2張）</label>
+        <label class="check-item"><input type="checkbox"> 台幣現金 / 韓元現鈔</label>
+        <label class="check-item"><input type="checkbox"> WOWPASS 卡（Fei & Hsi 小港機場領取開卡）</label>
         <label class="check-item"><input type="checkbox"> 電子入境卡 QR Code 截圖</label>
-        <label class="check-item"><input type="checkbox"> 2 吋備用證件照 2 張 + 黑色原子筆 1 支</label>
-      </div>
-      <div class="checklist-group">
-        <div class="checklist-title">📱 3C 車載周邊</div>
-        <label class="check-item"><input type="checkbox"> 車用手機導航磁吸/夾式支架（自駕神器）</label>
-        <label class="check-item"><input type="checkbox"> 韓國轉接頭（圓柱雙孔 4.8mm Type C/F）</label>
-        <label class="check-item"><input type="checkbox"> 行動電源（需隨身不可托運）</label>
-        <label class="check-item"><input type="checkbox"> 便攜行李秤（退房秤重防超重）</label>
-      </div>
-      <div class="checklist-group">
-        <div class="checklist-title">🧴 藥品與個人生活</div>
-        <label class="check-item"><input type="checkbox"> 個人牙刷牙膏（韓國旅宿不提供一次性牙膏牙刷）</label>
-        <label class="check-item"><input type="checkbox"> 暈船藥（Day 5 搭渡輪前 30 分鐘吃）</label>
-        <label class="check-item"><input type="checkbox"> 止痛藥、綜合感冒藥、胃藥、OK繃</label>
-        <label class="check-item"><input type="checkbox"> 一人一把輕便折疊晴雨傘</label>
-      </div>
-    </div>
-  </div>
+        <label class="check-item"><input type="checkbox"> 黑色原子筆 1 支（填申報單用）</label>
+        <label class="check-item"><input type="checkbox"> 2 吋備用證件照 2 張 + 身分證影本</label>
+        <label class="check-item"><input type="checkbox"> 機票與兩間民宿訂房憑證 PDF 截圖</label>
 
-  <!-- 頁面 5：工具與雨天備案 -->
-  <div id="page-tools" class="hidden">
-    <div class="section-card">
-      <div class="section-title">☔ 雨天備案快速切換手冊</div>
-      <div class="rule-item"><strong>Day 2 涯月海邊雨備：</strong>本態博物館 (Bonte Museum) 或 蓮洞 Nohyung 復古光影展。</div>
-      <div class="rule-item"><strong>Day 3 柱狀節理雨備：</strong>Hello Kitty 樂園 或 濟州航太博物館 (JAM)。</div>
-      <div class="rule-item"><strong>Day 4 9.81 賽車雨備：</strong>直接進入 9.81 室內競技館 (LAB 981) 雷射槍對戰。</div>
-      <div class="rule-item"><strong>Day 5 牛島停航雨備：</strong>直接對調 Day 6 濟州水上星球 (Aqua Planet) 全室內水族館。</div>
-      <div class="rule-item"><strong>Day 6 日出峰雨備：</strong>Orda 海景咖啡廳大片玻璃窗賞火山海景。</div>
+        <div class="checklist-title">📱 3C 與鋰電池（嚴禁托運）</div>
+        <label class="check-item"><input type="checkbox"> 手機與充電線</label>
+        <label class="check-item"><input type="checkbox"> 行動電源（容量標示需清晰）</label>
+        <label class="check-item"><input type="checkbox"> 車用手機導航磁吸/夾式支架（自駕神器）</label>
+        <label class="check-item"><input type="checkbox"> 相機、GoPro 及備用鋰電池</label>
+        <label class="check-item"><input type="checkbox"> 筆電 / iPad / 降噪耳機</label>
+        <label class="check-item"><input type="checkbox"> 隨身行李秤（最後兩晚打包秤重防超重）</label>
+
+        <div class="checklist-title">💆 舒適與急用</div>
+        <label class="check-item"><input type="checkbox"> 隨身首日急用藥品（胃藥/止痛）</label>
+        <label class="check-item"><input type="checkbox"> 飛機頸枕、眼罩、耳塞</label>
+        <label class="check-item"><input type="checkbox"> 防風薄外套 / 圍巾（機上與早晚防寒）</label>
+        <label class="check-item"><input type="checkbox"> 空水壺（安檢後裝水）</label>
+      </div>
+
+      <!-- 托運行李清單 -->
+      <div id="luggage-check" class="hidden">
+        <div class="checklist-title">👕 衣物鞋襪（民宿皆有洗烘機，3~4套輪替）</div>
+        <label class="check-item"><input type="checkbox"> 外出服飾 4 套（短袖/薄長袖 T-shirt）</label>
+        <label class="check-item"><input type="checkbox"> 外出長褲 / 工裝褲 / 長裙（3 件）</label>
+        <label class="check-item"><input type="checkbox"> 連帽防風外套 / 防曬罩衫（1~2 件）</label>
+        <label class="check-item"><input type="checkbox"> 睡衣家居服（1~2 套）</label>
+        <label class="check-item"><input type="checkbox"> 貼身免洗內褲 / 內衣褲（4~5 套）</label>
+        <label class="check-item"><input type="checkbox"> 運動厚襪（防磨腳，5~6 雙）</label>
+        <label class="check-item"><input type="checkbox"> 防滑抓地運動鞋（爬日出峰、騎車用）</label>
+        <label class="check-item"><input type="checkbox"> 輕便拖鞋 / 涼鞋（民宿使用）</label>
+        <label class="check-item"><input type="checkbox"> 遮陽帽 / 墨鏡 / 髒衣收納袋</label>
+
+        <div class="checklist-title">🧴 盥洗與保養（旅宿依法不提供牙刷牙膏）</div>
+        <label class="check-item"><input type="checkbox"> 牙膏、牙刷</label>
+        <label class="check-item"><input type="checkbox"> 洗髮精、沐浴乳、洗面乳（大罐托運）</label>
+        <label class="check-item"><input type="checkbox"> 卸妝棉 / 棉花棒 / 保濕乳液 / 高係數防曬</label>
+        <label class="check-item"><input type="checkbox"> 手動刮鬍刀（依法需托運）</label>
+        <label class="check-item"><input type="checkbox"> Umu 肥皂（若有購買，依法含液體凝膠只能托運）</label>
+
+        <div class="checklist-title">⚡ 電器雜物與藥包</div>
+        <label class="check-item"><input type="checkbox"> 韓國轉接頭（圓柱雙孔 4.8mm Type C/F 2~3個）</label>
+        <label class="check-item"><input type="checkbox"> 延長線 / 吹風機 / 離子夾（確認 220V 電壓）</label>
+        <label class="check-item"><input type="checkbox"> 輕量折疊晴雨傘（一人一把）</label>
+        <label class="check-item"><input type="checkbox"> 自拍棒 / 三腳架（收合逾 60cm 須托運）</label>
+        <label class="check-item"><input type="checkbox"> 剪刀、指甲剪、美工刀（鋒利工具必托運）</label>
+        <label class="check-item"><input type="checkbox"> 暈船藥（Day 5 牛島搭船前半小時吃）</label>
+        <label class="check-item"><input type="checkbox"> 止痛藥、感冒藥、腸胃藥、OK繃</label>
+      </div>
+
     </div>
+
     <div class="section-card">
       <div class="section-title">💰 韓元 ⇄ 台幣即時換算 (匯率 40)</div>
       <div class="calc-box">
@@ -202,9 +313,13 @@
     <div class="nav-icon">📅</div>
     <span>行程總表</span>
   </div>
-  <div class="nav-item" onclick="switchNav('drive', this)">
-    <div class="nav-icon">🚗</div>
-    <span>自駕守則</span>
+  <div class="nav-item" onclick="switchNav('rules', this)">
+    <div class="nav-icon">📜</div>
+    <span>行前公約</span>
+  </div>
+  <div class="nav-item" onclick="switchNav('pitfall', this)">
+    <div class="nav-icon">⚖️</div>
+    <span>避雷大推</span>
   </div>
   <div class="nav-item" onclick="switchNav('udo', this)">
     <div class="nav-icon">🚢</div>
@@ -212,11 +327,7 @@
   </div>
   <div class="nav-item" onclick="switchNav('pack', this)">
     <div class="nav-icon">🎒</div>
-    <span>行李穿搭</span>
-  </div>
-  <div class="nav-item" onclick="switchNav('tools', this)">
-    <div class="nav-icon">☔</div>
-    <span>雨備換算</span>
+    <span>行李換算</span>
   </div>
 </nav>
 
@@ -225,95 +336,98 @@
     1: {
       color: 'var(--d1)',
       items: [
-        { time: '13:05-15:30', title: '上海組抵達濟州 (HO1373)', desc: 'Elion & Eva 先行辦自動通關、領取 WOWPASS', cost: '-' },
-        { time: '15:50-18:50', title: '高雄組抵達濟州 (IT670)', desc: 'Fei & Hsi 抵達，19:30 於 1 樓到達大廳順利全員會合！', cost: '-' },
-        { time: '19:40-20:20', title: '樂天租車中心取車', desc: '搭乘免費 Shuttle 巴士辦理手續，核對國際駕照與休旅車況', cost: '租車合約' },
-        { time: '20:30-21:30', title: '晚餐：連洞排骨湯 / 黑豬肉湯麵', desc: '營業至 23:00。避開即將打烊的三姓穴，在市區吃溫熱在地美食', cost: '約 ₩45,000 (NT$1,125)' },
-        { time: '21:30-22:30', title: '夜駕前往大靜邑住宿點', desc: '車程約 55 分鐘，入住西部獨棟民宿，洗漱就寢', cost: '-' }
+        { time: '13:05-15:30', title: '上海組抵達濟州 (HO1373)', kr: '제주국제공항', desc: 'Elion & Eva 降落，自行換匯或於機場休息', cost: '-' },
+        { time: '15:50-18:50', title: '高雄組抵達濟州 (IT670)', kr: '가오슝-제주', desc: 'Fei & Hsi 小港機場領取 WOWPASS，抵達後 1 樓會合！', cost: '-' },
+        { time: '19:40-20:20', title: '樂天租車取車', kr: '롯데렌터카 제주오토하우스', desc: '搭乘免費 Shuttle 巴士辦理手續，核對國際駕照與休旅車況', cost: '租車合約' },
+        { time: '20:30-21:30', title: '晚餐：連洞排骨湯 / 黑豬肉湯麵', kr: '연동 고기국수 / 감자탕', desc: '營業至 23:00。避開即將打烊的三姓穴，在市區吃溫熱在地美食', cost: '約 ₩45,000 (NT$1,125)' },
+        { time: '21:30-22:30', title: '夜駕前往大靜邑住宿', kr: '서귀포시 대정읍', desc: '車程約 55 分鐘，入住西部獨棟民宿，洗漱就寢', cost: '-' }
       ]
     },
     2: {
       color: 'var(--d2)',
       items: [
-        { time: '09:35-10:20', title: '梨湖木筏海邊 紅白小馬燈塔', desc: '全天開放。海堤防波堤招牌紅白小馬燈塔拍照', cost: '免費', tag: 'tag-rain', tagText: '雨備:本態博物館' },
-        { time: '10:30-11:15', title: 'my jeju GIFT 紀念品店', desc: '營業 10:00-21:00。挑選濟州特色文創手作小物', cost: '自費採買' },
-        { time: '11:35-12:45', title: '午餐：翰林大鰻魚 / 暖春食堂', desc: '營業 11:00-21:30。炭烤厚切鰻魚或濃郁黑豬肉麵', cost: '約 ₩80,000 (NT$2,000)' },
-        { time: '12:55-13:30', title: '人氣甜點：Umu 布丁 (우무)', desc: '營業 09:00-20:00。海女採集海藻製作的嫩滑布丁', cost: '約 ₩27,200 (NT$680/4人)' },
-        { time: '14:00-15:45', title: 'Haribo Happy World 小熊軟糖展', desc: '營業 10:00-19:00。巨型童趣軟糖室內打卡樂園（雨天照常）', cost: '₩18,000/人 (NT$450/人)' },
-        { time: '16:10-16:45', title: 'AMA 杜拜巧克力 (아마 애월)', desc: '營業 10:00-18:00。涯月港旁，買 1~2 份酥脆開心果杜拜巧克力 4 人嚐鮮分食！', cost: '約 ₩18,000 (NT$450)', tag: 'tag-snack', tagText: '杜拜巧克力' },
-        { time: '16:55-18:15', title: '海景咖啡巡禮 (三選一)', desc: '選項：《母胎單身》同款約會「Brunch O」/ Lazy Pump / Comma；《我們的藍調時光》金陵海邊散步路旁', cost: '約 ₩32,000 (NT$800)', tag: 'tag-kdrama', tagText: '韓劇取景' },
-        { time: '18:30-19:50', title: '晚餐：挾才海邊黑豬肉烤肉', desc: '香脆黑豬肉配辣泡菜炒飯', cost: '約 ₩90,000 (NT$2,250)' },
-        { time: '21:15-22:15', title: '西部民宿洗烘衣物', desc: '啟動第 1 批洗衣與烘衣機', cost: '-' }
+        { time: '09:35-10:20', title: '梨湖木筏海邊 紅白小馬燈塔', kr: '이호테우해변 말등대', desc: '全天開放。防波堤招牌紅白小馬燈塔拍照', cost: '免費', tag: 'tag-rain', tagText: '雨備:本態博物館' },
+        { time: '10:30-11:15', title: 'my jeju GIFT 紀念品店', kr: '마이제주기프트', desc: '營業 10:00-21:00。挑選濟州特色手作紀念品', cost: '自費採買' },
+        { time: '11:35-12:45', title: '午餐：翰林大鰻魚 / 暖春食堂', kr: '한림통큰장어 / 봄날', desc: '營業 11:00-22:00。炭烤厚切鰻魚；備案 Noraba 評價兩極不列首選', cost: '約 ₩80,000 (NT$2,000)' },
+        { time: '12:55-13:30', title: 'Umu 布丁 (買 1 份分嚐)', kr: '우무 한림본점 (Umu)', desc: '營業 09:00-20:00。口感偏稀，4 人買 1 杯嚐鮮打卡！有買肥皂務必放托運', cost: '約 ₩6,800 (NT$170)', tag: 'tag-snack', tagText: '建議分食' },
+        { time: '14:00-15:45', title: 'Haribo Happy World 小熊軟糖展', kr: '하리보 해피월드', desc: '營業 10:00-19:00。巨型童趣軟糖打卡樂園（室內免淋雨）', cost: '₩18,000/人 (NT$450/人)' },
+        { time: '16:10-16:45', title: 'AMA 杜拜巧克力', kr: '아마 애월 (AMA)', desc: '營業 10:00-18:00。涯月港旁，買 1~2 份開心果脆絲杜拜巧克力嚐鮮！', cost: '約 ₩18,000 (NT$450)', tag: 'tag-snack', tagText: '杜拜巧克力' },
+        { time: '16:55-18:15', title: '海景咖啡：Beryl 狹才海邊咖啡', kr: '베릴 (Beryl)', desc: '評分 8/10！礁石海景第一排，推薦橘子氣泡飲；備案《母胎單身》Brunch O', cost: '約 ₩32,000 (NT$800)', tag: 'tag-rate', tagText: '評分 8/10' },
+        { time: '18:30-19:50', title: '晚餐：挾才海邊黑豬肉烤肉', kr: '협재 흑돼지', desc: '香脆黑豬肉配辣泡菜炒飯', cost: '約 ₩90,000 (NT$2,250)' },
+        { time: '20:15-21:30', title: '私房推薦：內島音樂商街 黑膠酒吧', kr: '내도음악상가', desc: '營業 17:00-24:00。看落日海景聽黑膠唱片，喝伯爵 Highball', cost: '約 ₩36,000 (NT$900)', tag: 'tag-hot', tagText: '私房寶藏' },
+        { time: '22:00', title: '西部民宿洗烘衣物', kr: '세탁&건조', desc: '啟動第 1 批洗衣與烘衣機', cost: '-' }
       ]
     },
     3: {
       color: 'var(--d3)',
       items: [
-        { time: '08:50-09:30', title: '晨間散策：石子森林 (돌코리숲)', desc: '營業 09:00-18:00。幽靜森系秘境步道散步', cost: '免費' },
-        { time: '09:40-11:30', title: 'Osulloc 雪綠茶博物館 & 濟州小屋', desc: '營業 09:00-18:00。綠茶梯田打卡、品嚐抹茶霜淇淋', cost: '約 ₩30,000 (NT$750)' },
-        { time: '11:45-13:00', title: '午餐：Donbellong (돈벨롱)', desc: '營業 11:00-19:00。兄弟海岸旁手作黑豬肉漢堡排', cost: '約 ₩60,000 (NT$1,500)' },
-        { time: '13:20-15:00', title: '山茶花之丘 (Camellia Hill)', desc: '營業 08:30-18:30。初秋滿開粉紅亂子草與狼尾草步道', cost: '₩10,000/人 (NT$250/人)', tag: 'tag-hot', tagText: '必拍花海' },
-        { time: '15:20-16:20', title: '大浦柱狀節理帶', desc: '營業 09:00-18:00。海邊世界級六角火山柱岩', cost: '₩2,000/人 (NT$50/人)', tag: 'tag-rain', tagText: '雨備:航太館' },
-        { time: '16:40-18:00', title: '橘花閣樓 (귤꽃다락)', desc: '營業 11:00-18:45。百年柑橘園古樸石屋咖啡廳', cost: '約 ₩32,000 (NT$800)' },
-        { time: '18:30-20:30', title: '西歸浦每日偶來市場 美食街', desc: '《我們的藍調時光》取景市場之一！吃花生爺爺冰淇淋、黑豬肉肉丸串、柑橘大福麻糬', cost: '約 ₩60,000 (NT$1,500)', tag: 'tag-kdrama', tagText: '韓劇市場' }
+        { time: '08:50-09:30', title: '晨間散策：石子森林', kr: '돌코리숲', desc: '營業 09:00-18:00。幽靜森系秘境步道散步', cost: '免費' },
+        { time: '09:40-11:30', title: 'Osulloc 雪綠茶博物館 & 濟州小屋', kr: '오설록 티 뮤지엄', desc: '純抹茶霜淇淋一生推！千萬別點橘子汁加霜淇淋，避雷免踩坑', cost: '約 ₩30,000 (NT$750)', tag: 'tag-hot', tagText: '必吃抹茶冰' },
+        { time: '11:45-13:00', title: '午餐首選：Perlo 窯烤餐酒館', kr: '페를로 (PERLO)', desc: '西歸浦安德面在地人狂推！道地柴燒薄餅披薩與海鮮麵；備案 Donbellong', cost: '約 ₩75,000 (NT$1,875)', tag: 'tag-rate', tagText: '在地人大推' },
+        { time: '13:20-15:00', title: '山茶花之丘 (Camellia Hill)', kr: '카멜리아힐', desc: '營業 08:30-18:30。初秋滿開粉紅亂子草與狼尾草步道', cost: '₩10,000/人 (NT$250/人)', tag: 'tag-hot', tagText: '必拍花海' },
+        { time: '15:20-16:20', title: '大浦柱狀節理帶', kr: '대포주상절리', desc: '海邊世界級六角火山柱岩；或順遊牛沼端木筏', cost: '₩2,000/人 (NT$50/人)', tag: 'tag-rain', tagText: '雨備:航太館' },
+        { time: '16:40-18:00', title: '橘花閣樓 (評分 9/10)', kr: '귤꽃다락', desc: '去過所有濟州咖啡廳最愛！柑橘園復古石屋拍照極美', cost: '約 ₩32,000 (NT$800)', tag: 'tag-rate', tagText: '評分 9/10' },
+        { time: '18:30-20:30', title: '西歸浦每日偶來市場 美食街', kr: '서귀포매일올레시장', desc: '花生爺爺冰淇淋、整顆爆汁橘子糖葫蘆！黑豬肉捲買一份分嚐就好', cost: '約 ₩60,000 (NT$1,500)', tag: 'tag-snack', tagText: '必吃糖葫蘆' }
       ]
     },
     4: {
       color: 'var(--d4)',
       items: [
-        { time: '10:00', title: '西部民宿退房（行李全上車）', desc: '出發前往 9.81 重力賽車樂園', cost: '-' },
-        { time: '10:40-13:30', title: '9.81 Park 濟州重力賽車', desc: '營業 09:00-18:20。無動力卡丁車極速下坡、APP 自動下載個人追焦片（遇雨轉室內LAB 981）', cost: '₩39,500/人 (NT$988/人)', tag: 'tag-hot', tagText: '必玩體驗' },
-        { time: '13:40-15:00', title: '午餐：Saebil 景觀咖啡廳 (새빌)', desc: '營業 09:00-19:00。《母胎單身》同款背景！正對曉星岳粉紅芒草海景', cost: '約 ₩45,000 (NT$1,125)', tag: 'tag-dating', tagText: '母胎單身取景' },
-        { time: '15:15-16:45', title: 'Arte Museum Jeju 光影藝術館', desc: '營業 10:00-20:00。巨浪與流動瀑布震撼視覺沉浸展（室內不受天氣影響）', cost: '₩17,000/人 (NT$425/人)' },
-        { time: '17:00-18:20', title: '橫越公路遷往東部城山民宿', desc: '車程約 75 分鐘，入住城山邑新川里海邊民宿', cost: '-' },
-        { time: '19:40-21:15', title: '晚餐：피갈회옥 (被褐懷玉)', desc: '營業 12:00-22:00。《母胎單身》金相昊同款生魚片與海鮮盛宴！', cost: '約 ₩110,000 (NT$2,750)', tag: 'tag-dating', tagText: '母胎單身取景' }
+        { time: '10:00', title: '西部民宿退房（行李全上車）', kr: '체크아웃', desc: '出發前往 9.81 重力賽車樂園', cost: '-' },
+        { time: '10:40-13:30', title: '9.81 Park 濟州重力賽車', kr: '9.81파크 제주', desc: '買710元套票！賽道①拍正面美照，賽道②走外內外不急煞，爭取刷進 Master 賽道！', cost: '約 ₩28,400/人 (NT$710/人)', tag: 'tag-hot', tagText: '賽車攻略' },
+        { time: '13:40-15:00', title: '午餐：Saebil 景觀咖啡廳', kr: '새빌 (Saebil)', desc: '正對曉星岳粉紅芒草！《母胎單身》同款背景地', cost: '約 ₩45,000 (NT$1,125)', tag: 'tag-dating', tagText: '母胎單身取景' },
+        { time: '15:15-16:45', title: 'Arte Museum Jeju 光影藝術館', kr: '아르떼뮤지엄 제주', desc: '巨浪與流動瀑布震撼視覺沉浸展（全室內不受天氣影響）', cost: '₩17,000/人 (NT$425/人)' },
+        { time: '17:00-18:20', title: '橫越遷入東部城山民宿', kr: '서귀포시 성산읍', desc: '車程約 75 分鐘，入住城山邑新川里海邊民宿', cost: '-' },
+        { time: '19:40-21:15', title: '晚餐：피갈회옥 (被褐懷玉)', kr: '피갈회옥 (Pigalhoeok)', desc: '金相昊同款新鮮活魚生魚片與海鮮盛宴！', cost: '約 ₩110,000 (NT$2,750)', tag: 'tag-dating', tagText: '母胎單身取景' }
       ]
     },
     5: {
       color: 'var(--d5)',
       items: [
-        { time: '07:30', title: '看 chengshan.kr 牛島即時視訊', desc: '確認港口海況與渡輪班次（若停駛直接切換水上星球）', cost: '-' },
-        { time: '09:00-10:20', title: '城山浦港買票搭渡輪登島', desc: '填寫乘船申報表，出示護照搭乘渡輪', cost: '來回 ₩10,500/人' },
-        { time: '10:30-11:00', title: '租借電動雙人車', desc: '憑國際駕照與護照租借 2 台微型電動車', cost: '約 ₩70,000 (NT$1,750)' },
-        { time: '11:15-12:45', title: '原祖牛島花生夾心餅本店 Peanut', desc: '營業 11:00-18:00。下古水洞海灘正對面，吃現做花生霜淇淋與夾心餅！', cost: '約 ₩35,000 (NT$875)', tag: 'tag-snack', tagText: '牛島必吃' },
-        { time: '13:00-14:30', title: '牛島午餐：海女章魚海鮮拉麵', desc: '整隻活章魚海鮮拉麵、火山炒飯', cost: '約 ₩60,000 (NT$1,500)' },
-        { time: '14:45-16:00', title: '牛島巡禮：西濱白沙珊瑚灘與牛島峰', desc: '欣賞透明漸層果凍海', cost: '免費' },
-        { time: '17:15-18:30', title: '世界自然遺產：萬丈窟', desc: '營業至 18:00 (17:00 停止售票)。2026全新開放，世界最大熔岩石柱', cost: '₩4,000/人 (NT$100/人)' },
-        { time: '19:15-20:45', title: '晚餐：月高家 黑豬肉 (월고가)', desc: '營業 11:00-22:00。專人代烤外脆內嫩極品黑豬肉', cost: '約 ₩96,000 (NT$2,400)' }
+        { time: '07:30', title: '看 chengshan.kr 牛島即時視訊', kr: '우도 실시간 영상', desc: '確認天津港海況與渡輪（若停駛直接切換水上星球）', cost: '-' },
+        { time: '08:30-09:40', title: '城山浦港買票搭渡輪登島', kr: '성산포항 종합여객터미널', desc: '導航「城山浦港綜合客輪客運站」，每 30 分鐘一班', cost: '來回 ₩10,500/人' },
+        { time: '10:00-10:30', title: '租借電動雙人車 (台灣老闆)', kr: '우도로 4-1', desc: '導航設 우도로 4-1，天津港旁，中文溝通公道價約 ₩30,000/台', cost: '約 ₩60,000 (NT$1,500/2台)' },
+        { time: '11:00-12:30', title: '午餐：Seomsonai 海鮮炒碼麵', kr: '섬소나이 (우도해안길 810)', desc: '店員激推必吃「奶油海鮮炒碼麵」與薄皮披薩！', cost: '約 ₩55,000 (NT$1,375)', tag: 'tag-hot', tagText: '牛島必吃' },
+        { time: '12:30-13:30', title: '原祖牛島花生夾心餅本店 Peanut', kr: '원조우도샌드본점 피너트', desc: '炒碼麵對面！必吃花生霜淇淋與現烤花生夾心餅', cost: '約 ₩35,000 (NT$875)', tag: 'tag-snack', tagText: '花生名店' },
+        { time: '13:45-15:30', title: '牛島環島：西濱白沙、Udoi選物店', kr: '서빈백사 / 우도i', desc: '欣賞果凍海，逛下古水洞海女選物店；Blanc Rocher蛋糕太甜喝花生奶蓋就好', cost: '免費' },
+        { time: '16:00', title: '搭渡輪返回城山浦港', kr: '성산포항 복귀', desc: '避開 18:00 末班船擁擠人潮，輕鬆返程', cost: '-' },
+        { time: '16:45-18:00', title: '世界自然遺產：萬丈窟', kr: '만장굴', desc: '營業至 18:00 (17:00 停止售票)。2026全新開放，世界最大熔岩石柱', cost: '₩4,000/人 (NT$100/人)' },
+        { time: '18:30-20:00', title: '晚餐：月高家 黑豬肉 (월고가)', kr: '월고가 본점 (Wolpork)', desc: '專人桌邊代烤極致酥脆鮮嫩黑豬肉五花肉', cost: '約 ₩96,000 (NT$2,400)' }
       ]
     },
     6: {
       color: 'var(--d6)',
       items: [
-        { time: '08:30-10:45', title: '城山日出峰 攻頂收費路線', desc: '營業 07:00-19:00。攀爬至火山口頂峰，俯瞰無邊海灣；山腳廣峙其海灘為《歡迎回到三達里》場景', cost: '₩5,000/人 (NT$125/人)', tag: 'tag-kdrama', tagText: '三達里取景' },
-        { time: '11:00-12:15', title: '午餐：海女飯卷 (해녀김밥)', desc: '營業 09:00-18:00。鮑魚海苔飯卷與炸魷魚香酥定食', cost: '約 ₩38,000 (NT$950)' },
-        { time: '12:30-15:00', title: '濟州水上星球 (Aqua Planet Jeju)', desc: '營業 09:30-19:00。亞洲最大巨型水族箱、海女潛水餵食秀（室內不受雨天影響）', cost: '約 ₩39,000/人 (NT$975/人)' },
-        { time: '15:20-16:40', title: '涉地可支 (Sopjikoji)', desc: '韓劇《All In》童話海岬、白色燈塔與安藤忠雄建築', cost: '免費 (停車 ₩3,000)', tag: 'tag-kdrama', tagText: '韓劇經典' },
-        { time: '17:00-18:30', title: 'Cafe The Container (橘子採收箱咖啡)', desc: '營業 10:30-18:00。巨大鮮黃橘子採收籃建築打卡拍照', cost: '約 ₩32,000 (NT$800)' },
-        { time: '19:00-20:30', title: '晚餐：城山整條長烤白帶魚鍋', desc: '整條霸氣白帶魚鍋，肉質細緻鮮甜', cost: '約 ₩88,000 (NT$2,200)' }
+        { time: '08:30-10:45', title: '城山日出峰 攻頂收費路線', kr: '성산일출봉', desc: '攀爬至火山口頂峰；山腳廣峙其海灘為《三達里》拍攝地', cost: '₩5,000/人 (NT$125/人)', tag: 'tag-kdrama', tagText: '三達里取景' },
+        { time: '11:00-12:15', title: '午餐：海女飯卷 城山店', kr: '해녀김밥 성산점', desc: '鮑魚海苔飯卷與炸魷魚香酥定食，清爽無負擔', cost: '約 ₩38,000 (NT$950)' },
+        { time: '12:30-15:00', title: '二選一：海景馬場咖啡放空 / 水上星球', kr: '오른 (ORrrN) / 아쿠아플라넷 제주', desc: '草甸看馬餵馬、室內吹冷氣喝咖啡；或參觀巨型水族館', cost: '約 ₩35,000 (NT$875)', tag: 'tag-hot', tagText: '看馬放空' },
+        { time: '15:20-16:40', title: '涉地可支', kr: '섭지코지', desc: '《All In》經典童話海岬、白色燈塔與安藤忠雄建築', cost: '免費 (停車 ₩3,000)', tag: 'tag-kdrama', tagText: '韓劇經典' },
+        { time: '17:00-18:30', title: 'Cafe The Container 橘子採收箱咖啡', kr: '카페 더 콘테이너', desc: '巨大鮮黃橘子採收籃建築打卡拍照', cost: '約 ₩32,000 (NT$800)' },
+        { time: '19:00-20:30', title: '晚餐首選：Haewat 白帶魚燉鍋', kr: '해왓 (Haewat)', desc: '評分 9/10！城山在地狂推厚切燉白帶魚與海膽湯', cost: '約 ₩88,000 (NT$2,200)', tag: 'tag-rate', tagText: '評分 9/10' }
       ]
     },
     7: {
       color: 'var(--d7)',
       items: [
-        { time: '08:45-10:45', title: 'London Bagel Museum 倫敦貝果', desc: '營業 08:00-18:00。現場抽號碼牌，招牌蔥乳酪貝果配松露濃湯', cost: '約 ₩45,000 (NT$1,125)', tag: 'tag-hot', tagText: '超人氣' },
-        { time: '11:00-12:30', title: '月汀里海水浴場 (果凍海)', desc: '《歡迎回到三達里》風車海景！沙灘彩色木椅拍照', cost: '免費', tag: 'tag-kdrama', tagText: '三達里取景' },
-        { time: '14:30-16:00', title: 'Cafe Glencoe (母胎單身取景花園)', desc: '營業 09:30-18:30。《母胎單身》同款大片粉紅亂子草海、歐風莊園庭院', cost: '低消飲品約 ₩28,000', tag: 'tag-dating', tagText: '母胎單身取景' },
-        { time: '16:30-18:00', title: 'Snoopy Garden (史努比庭園)', desc: '營業 09:00-19:00。戶外森林與室內展館公仔拍照超療癒', cost: '₩18,000/人 (NT$450/人)' },
-        { time: '18:30-20:30', title: '告別晚宴：熟成到 (Sukseongdo)', desc: '頂級熟成黑豬肉極致香氣，專人炙烤', cost: '約 ₩110,000 (NT$2,750)' },
-        { time: '21:00-23:00', title: '全體大打包與洗烘衣', desc: '最後一晚，洗脫烘全數完成、行李秤重收納', cost: '-' }
+        { time: '08:45-10:45', title: 'London Bagel Museum 倫敦貝果', kr: '런던베이글뮤지엄 제주', desc: '先抽號碼牌！2人分吃 1 顆招牌蔥乳酪貝果配松露濃湯', cost: '約 ₩30,000 (NT$750)', tag: 'tag-snack', tagText: '建議分食' },
+        { time: '11:00-12:30', title: '月汀里海水浴場 (果凍海)', kr: '월정리해수욕장', desc: '《歡迎回到三達里》風車海景！彩色木椅拍照', cost: '免費', tag: 'tag-kdrama', tagText: '三達里取景' },
+        { time: '12:45-13:45', title: '必買名點：Audrant Bakery 大蒜麵包', kr: '오드랑베이커리 (Audrant)', desc: '評分 10/10！外層甜脆蒜香奶醬濃郁無比，買回車上吃', cost: '約 ₩15,000 (NT$375)', tag: 'tag-rate', tagText: '評分 10/10' },
+        { time: '14:30-16:00', title: 'Cafe Glencoe (母胎單身取景花園)', kr: '카페글렌코 (Glencoe)', desc: '《母胎單身》同款大片粉紅亂子草海、歐風莊園庭院', cost: '低消飲品約 ₩28,000', tag: 'tag-dating', tagText: '母胎單身取景' },
+        { time: '16:30-18:00', title: 'Snoopy Garden (史努比庭園)', kr: '스누피가든', desc: '戶外森林與室內展館公仔拍照超療癒', cost: '₩18,000/人 (NT$450/人)' },
+        { time: '18:30-20:30', title: '告別晚宴：熟成到 (評分 10/10)', kr: '숙성도', desc: '頂級熟成黑豬肉極致香氣，專人桌邊炙烤', cost: '約 ₩110,000 (NT$2,750)', tag: 'tag-rate', tagText: '評分 10/10' },
+        { time: '21:00-23:00', title: '全體大打包與洗烘衣', kr: '짐 정리', desc: '最後一晚，洗脫烘全數完成、行李秤重收納', cost: '-' }
       ]
     },
     8: {
       color: 'var(--d8)',
       items: [
-        { time: '10:30', title: '退房前往濟州市區', desc: '車程約 60 分鐘', cost: '-' },
-        { time: '12:00-13:45', title: '壓軸大餐：三姓穴海鮮湯 本店', desc: '營業 10:00-21:00。整大鍋活章魚、鮑魚、海蟹，完美收官不趕路！', cost: '特大鍋 ₩95,000 (NT$2,375)', tag: 'tag-hot', tagText: '壓軸美食' },
-        { time: '14:00-16:00', title: '七星購物街 & 中央地下商街', desc: '營業 10:00-21:30。店家全開，採購美妝與最後伴手禮', cost: '自費採買' },
-        { time: '16:15-16:45', title: '樂天租車加滿油還車', desc: '專人點交車況，搭免費接駁巴士直達航廈', cost: '-' },
-        { time: '17:00', title: '濟州機場退稅與登機手續', desc: '機台辦理退稅、免稅提貨', cost: '-' },
-        { time: '19:10', title: '上海組起飛 (MU5028)', desc: 'Elion & Eva 飛往上海浦東', cost: '-' },
-        { time: '19:50', title: '高雄組起飛 (IT671)', desc: 'Fei & Hsi 飛往高雄，21:15 順利抵達小港機場！', cost: '-' }
+        { time: '10:30', title: '退房前往濟州市區', kr: '제주시내 이동', desc: '車程約 60 分鐘', cost: '-' },
+        { time: '12:00-13:45', title: '午餐二選一：機會生魚片 / 三姓穴海鮮', kr: '기회횟집 / 삼성혈해물탕', desc: '推薦東門市場旁「機會生魚片」硬殼蝦；若選三姓穴海鮮點小份即可', cost: '約 ₩80,000 (NT$2,000)', tag: 'tag-rate', tagText: '評分 7/10' },
+        { time: '14:00-16:00', title: '七星購物街 & 中央地下商街', kr: '칠성로쇼핑거리 / 중앙지하상가', desc: '營業 10:00-21:30。採購美妝與最後伴手禮', cost: '自費採買' },
+        { time: '16:15-16:45', title: '樂天租車加滿油還車', kr: '롯데렌터카 반납', desc: '專人點交車況，搭免費接駁車前往航廈', cost: '-' },
+        { time: '17:00', title: '濟州機場退稅與登機手續', kr: '제주국제공항', desc: '機台辦理退稅、免稅提貨', cost: '-' },
+        { time: '19:10', title: '上海組起飛 (MU5028)', kr: '제주-상하이 푸동', desc: 'Elion & Eva 飛往上海浦東', cost: '-' },
+        { time: '19:50', title: '高雄組起飛 (IT671)', kr: '제주-가오슝', desc: 'Fei & Hsi 飛往高雄，21:15 順利抵達小港機場！', cost: '-' }
       ]
     }
   };
@@ -333,6 +447,7 @@
           <div>${tagHtml}</div>
         </div>
         <div class="card-title">${item.title}</div>
+        <div class="card-kr">📍 ${item.kr}</div>
         <div class="card-desc">${item.desc}</div>
         <div class="card-cost">預估費用：${item.cost}</div>
       `;
@@ -351,10 +466,22 @@
   function switchNav(tab, el) {
     document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
     el.classList.add('active');
-    ['itinerary', 'drive', 'udo', 'pack', 'tools'].forEach(id => {
+    ['itinerary', 'rules', 'pitfall', 'udo', 'pack'].forEach(id => {
       document.getElementById('page-' + id).classList.add('hidden');
     });
     document.getElementById('page-' + tab).classList.remove('hidden');
+  }
+
+  function switchLuggage(type, el) {
+    document.querySelectorAll('.luggage-tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    if(type === 'carry') {
+      document.getElementById('luggage-carry').classList.remove('hidden');
+      document.getElementById('luggage-check').classList.add('hidden');
+    } else {
+      document.getElementById('luggage-carry').classList.add('hidden');
+      document.getElementById('luggage-check').classList.remove('hidden');
+    }
   }
 
   function calcKRW() {
